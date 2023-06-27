@@ -8,6 +8,23 @@
     <title>Etcher a Sketch</title>
 </head>
 <body>
+    <div class="option-container">
+        <div class="color-setting">
+            <label>Color 1</label>
+            <div class="gradient" id="color1-gradient" onmousemove="gradient(1,event)"></div>
+            <div class="slider" id="color-slider" onmousemove="slider(1,event)">
+                <div class="sliderpicker" id="picker1"></div>
+            </div>
+        </div>
+        <div class="color-setting">
+            <label>Color 2</label>
+            <div class="gradient" id="color2-gradient" onmousemove="gradient(2,event)"></div>
+            <div class="slider" id="color-slider" onmousemove="slider(2,event)">
+                <div class="sliderpicker" id="picker2" ></div>
+            </div>
+        </div>
+        <button onclick="reset()">Reset</button>
+    </div>
    <div class="grid"></div> 
 </body>
 </html>
