@@ -27,7 +27,7 @@ label{
 
 
 .slider{
-    width: 400px;
+    width: 350px;
     height: 50px;
     background: linear-gradient(to right, #F00, #FF0, #0F0, #0FF, #00F, #F0F, #F00);
 }
@@ -43,10 +43,19 @@ label{
 
 
 .gradient{
-    height: 400px;
-    width: 400px;
+    height: 350px;
+    width: 350px;
     background-color: red;
     background-image:   linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(0 0% 100% / 0) 50%, hsl(0 0% 0% / 0) 50%, hsl(0 0% 0%) 100%), linear-gradient(to right, hsl(0 0% 50%) 0%, hsl(0 0% 50% / 0) 100%);
+    overflow: hidden;
+}
+
+.gradientpicker{
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    border: 2px solid white ;
 }
 
 
