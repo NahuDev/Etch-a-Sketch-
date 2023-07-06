@@ -14,6 +14,7 @@ let sPicker1 = document.getElementById("spicker1");
 let sPicker2 = document.getElementById("spicker2");
 let gPicker1 = document.getElementById("gpicker1");
 let gPicker2 = document.getElementById("gpicker2");
+let rainbowBool = false;
 
 for(let i = 0 ; i < numbers*numbers ; i++){
     let square= grid.appendChild( document.createElement("div"));
@@ -31,8 +32,12 @@ grid.style.height = (numbers*length + 2*numbers*margin).toString() + "px";
 function changeSquareColor(event){
     let x,y;
     [x,y] = event.target.id.split("-").map(Number);
-    percentageArr[x][y] = Math.min(percentageArr[x][y]+10,100);
-    event.target.style.backgroundColor = `color-mix(in xyz ,${color1},${color2} ${percentageArr[x][y]}%)`;
+    if(rainbowBool){
+        event.target.style.backgroundColor = `hsl( ${Math.floor(Math.random()*360)}deg , 100% , 50%)`
+    }else{
+        percentageArr[x][y] = Math.min(percentageArr[x][y]+10,100);
+        event.target.style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
+    }
 }
 
 function slider(n,event){
@@ -87,4 +92,8 @@ function reset(){
             document.getElementById(`${x}-${y}`).style.backgroundColor = `color-mix(in srgb,${color1},${color2} 0%)`;
         }
     }
+}
+
+function rainbow(){
+    rainbowBool = !rainbowBool;
 }
