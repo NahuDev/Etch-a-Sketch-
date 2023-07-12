@@ -1,10 +1,11 @@
 
 let grid = document.querySelector(".grid");
-let length = 30;
-let margin = 1;
-let numbers = 20;
+let currentNumber = Number(document.querySelector("input").value);
+let max = Number(document.querySelector("input").max);
+let gridSize = 700;
 let sliderLength = 350;
-let percentageArr = Array(numbers).fill().map(x => Array(numbers).fill(0));
+let squareLength = Math.floor(gridSize/currentNumber);
+let percentageArr = Array(max).fill().map(x => Array(max).fill(0));
 let color1 = "red";
 let color2 = "blue";
 let slider1 = document.getElementById("color1-slider");
@@ -15,23 +16,75 @@ let sPicker2 = document.getElementById("spicker2");
 let gPicker1 = document.getElementById("gpicker1");
 let gPicker2 = document.getElementById("gpicker2");
 let rainbowBool = false;
+grid.style.width = gridSize.toString() + "px";
+grid.style.height = gridSize.toString() + "px";
 
-for(let i = 0 ; i < numbers*numbers ; i++){
-    let square= grid.appendChild( document.createElement("div"));
-    square.setAttribute("id",`${Math.floor(i/numbers)}-${i%numbers}`);
-    square.style.width = length.toString() + "px";
-    square.style.height = length.toString() + "px";
-    square.style.backgroundColor = color1;
-    square.style.margin = margin.toString() + "px";
-    square.addEventListener("mouseover", changeSquareColor);
+
+for(let x = 0 ; x < max; x++){
+    for(let y = 0 ; y < max ; y++ ){
+        let square = grid.appendChild( document.createElement("div"));
+        square.setAttribute("id",`${x}-${y}`);
+        square.style.width = `${100/currentNumber}%`;
+        square.style.height = `${100/currentNumber}%`;
+        square.style.backgroundColor = color1;
+        square.style.margin = "0";
+        square.style.display = x >= currentNumber || y >= currentNumber ? "none" : "inline";
+        square.addEventListener("mouseover", changeSquareColor);
+    }
 }
 
-grid.style.width = (numbers*length + 2*numbers*margin).toString() + "px";
-grid.style.height = (numbers*length + 2*numbers*margin).toString() + "px";
+
+document.getElementById("square-slider").oninput = function (){
+    n = Number(this.value) ;
+    if(n == currentNumber){
+        return;
+    }
+    if(n < currentNumber){
+        for(let x = n; x < currentNumber; x++){
+            for(let y = 0 ; y <  currentNumber; y++){
+                document.getElementById(`${x}-${y}`).style.display = "none";
+            }
+        }
+        for(let x = 0; x < currentNumber; x++){
+            for(let y = n; y <  currentNumber; y++){
+                document.getElementById(`${x}-${y}`).style.display = "none";
+            }
+        }
+    }else{
+        for(let x = currentNumber-1; x < n; x++){
+            for(let y = 0 ; y <  n; y++){
+                document.getElementById(`${x}-${y}`).style.display = "inline";
+                if(!rainbowBool){
+                    document.getElementById(`${x}-${y}`).style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
+                }
+            }
+        }
+        for(let x = 0 ; x < n ; x++){
+            for(let y = currentNumber-1; y <  n; y++){
+                document.getElementById(`${x}-${y}`).style.display = "inline";
+                if(!rainbowBool){
+                    document.getElementById(`${x}-${y}`).style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
+                }
+            }
+        }
+    }
+    currentNumber = n;
+    let per = 100/currentNumber;
+    squareLength = Math.floor(gridSize/currentNumber);
+    for(let x = 0 ; x < currentNumber ; x++){
+        for(let y = 0 ; y < currentNumber ; y++){
+            square = document.getElementById(`${x}-${y}`);
+            square.style.width = `${per}%`;
+            square.style.height = `${per}%`;
+        }
+    }
+}
+
 
 function changeSquareColor(event){
     let x,y;
     [x,y] = event.target.id.split("-").map(Number);
+    console.log(event.buttons);
     if(rainbowBool){
         event.target.style.backgroundColor = `hsl( ${Math.floor(Math.random()*360)}deg , 100% , 50%)`
     }else{
@@ -73,12 +126,14 @@ function gradient(n,event){
         gPicker2.style.marginTop = `${event.offsetY - 5}px`;
         gPicker2.style.backgroundColor = color2;
     }
-    requestAnimationFrame(updateGrid);
+    if(!rainbowBool){
+        requestAnimationFrame(updateGrid);
+    }
 }
 
 function updateGrid(){
-    for(let x = 0 ; x < numbers ; x++){
-        for(let y = 0 ; y < numbers ; y++){
+    for(let x = 0 ; x < currentNumber; x++){
+        for(let y = 0 ; y < currentNumber; y++){
             document.getElementById(`${x}-${y}`).style.backgroundColor =`color-mix(in xyz ,${color1},${color2} ${percentageArr[x][y]}%)`;
         }
     }
@@ -86,8 +141,8 @@ function updateGrid(){
 
 
 function reset(){
-    for(let x = 0 ; x < numbers ; x++){
-        for(let y = 0 ; y < numbers ; y++){
+    for(let x = 0 ; x < max; x++){
+        for(let y = 0 ; y < max; y++){
             percentageArr[x][y] = 0;
             document.getElementById(`${x}-${y}`).style.backgroundColor = `color-mix(in srgb,${color1},${color2} 0%)`;
         }

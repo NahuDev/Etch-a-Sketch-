@@ -12,6 +12,9 @@ body{
 
 label{
     text-align: center;
+    color: white;
+    font-size: large;
+    font-weight: 500;
 }
 
 .option-container{
@@ -23,6 +26,9 @@ label{
 .color-setting{
     background-color: black;
     color: white;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
 }
 
 
@@ -56,6 +62,19 @@ label{
     height: 10px;
     border-radius: 10px;
     border: 2px solid white ;
+}
+
+#square-slider{
+    appearance: slider-vertical;
+}
+
+.slider-div{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    height: 100%;
 }
 
 
