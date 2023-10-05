@@ -35,6 +35,12 @@ label{
 .slider{
     width: 350px;
     height: 50px;
+    margin: 4%;
+    border: 2px solid white;
+    border-top-right-radius: 10% 50%;
+    border-bottom-right-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+    border-top-left-radius: 10% 50%;
     background: linear-gradient(to right, #F00, #FF0, #0F0, #0FF, #00F, #F0F, #F00);
 }
 
@@ -76,6 +82,21 @@ label{
 input{
     height: 100%;
 }
+
+.button-div{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+
+.button-div button{
+    margin: 4%;
+    width:100%;
+    border-radius: 20%;
+    aspect-ratio: 1;
+}
+
+
 
 
 .grid{

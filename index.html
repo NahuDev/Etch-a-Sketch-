@@ -28,12 +28,14 @@
                 <div class="sliderpicker" id="spicker2" ></div>
             </div>
         </div>
-        <button onclick="reset()">Reset</button>
-        <button onclick="rainbow()">Rainbow</button>
+        <div class = "button-div">
+            <button onclick="reset()">Reset</button>
+            <button onclick="rainbow()">Rainbow</button>
+        </div>
     </div>
     <div class="slider-div">
         <label>50</label>
-        <input type="range" min="5" max="50" value="20" step="1" id="square-slider">
+        <input type="range" min="5" max="50" value="20" step="1" id="square-slider" oninput="resizeGrid(Number(this.value))">
         <label>5</label>
     </div>
    <div class="grid"></div> 

@@ -18,6 +18,7 @@ let gPicker2 = document.getElementById("gpicker2");
 let rainbowBool = false;
 grid.style.width = gridSize.toString() + "px";
 grid.style.height = gridSize.toString() + "px";
+document.addEventListener("contextmenu", e => e.preventDefault(), false);
 
 
 for(let x = 0 ; x < max; x++){
@@ -34,14 +35,13 @@ for(let x = 0 ; x < max; x++){
 }
 
 
-document.getElementById("square-slider").oninput = function (){
-    n = Number(this.value) ;
+function resizeGrid(n){
     if(n == currentNumber){
         return;
     }
     if(n < currentNumber){
-        for(let x = n; x < currentNumber; x++){
-            for(let y = 0 ; y <  currentNumber; y++){
+    for(let x = n; x < currentNumber; x++){
+        for(let y = 0 ; y <  currentNumber; y++){
                 document.getElementById(`${x}-${y}`).style.display = "none";
             }
         }
@@ -84,11 +84,14 @@ document.getElementById("square-slider").oninput = function (){
 function changeSquareColor(event){
     let x,y;
     [x,y] = event.target.id.split("-").map(Number);
-    console.log(event.buttons);
     if(rainbowBool){
         event.target.style.backgroundColor = `hsl( ${Math.floor(Math.random()*360)}deg , 100% , 50%)`
     }else{
-        percentageArr[x][y] = Math.min(percentageArr[x][y]+10,100);
+        if(event.buttons % 2){
+            percentageArr[x][y] = Math.min(percentageArr[x][y]+10,100);
+        }else if(Math.floor(event.buttons/2) % 2){
+            percentageArr[x][y] = Math.max(percentageArr[x][y]-10,0);
+        }
         event.target.style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
     }
 }
