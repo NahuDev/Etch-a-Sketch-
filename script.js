@@ -5,7 +5,7 @@ let max = Number(document.querySelector("input").max);
 let gridSize = 700;
 let sliderLength = 350;
 let squareLength = Math.floor(gridSize/currentNumber);
-let percentageArr = Array(max).fill().map(x => Array(max).fill(0));
+let percentageArr = Array(max).fill().map(_ => Array(max).fill(0));
 let color1 = "red";
 let color2 = "blue";
 let slider1 = document.getElementById("color1-slider");
@@ -16,6 +16,7 @@ let sPicker2 = document.getElementById("spicker2");
 let gPicker1 = document.getElementById("gpicker1");
 let gPicker2 = document.getElementById("gpicker2");
 let rainbowBool = false;
+let isHoverGrid = false;
 grid.style.width = gridSize.toString() + "px";
 grid.style.height = gridSize.toString() + "px";
 document.addEventListener("contextmenu", e => e.preventDefault(), false);
@@ -31,8 +32,12 @@ for(let x = 0 ; x < max; x++){
         square.style.margin = "0";
         square.style.display = x >= currentNumber || y >= currentNumber ? "none" : "inline";
         square.addEventListener("mouseover", changeSquareColor);
+        square.addEventListener("mousedown" , changeSquareColor);
     }
 }
+
+grid.addEventListener("mouseover", _ => isHoverGrid = true );
+grid.addEventListener("mouseout", _ => isHoverGrid = false );
 
 
 function resizeGrid(n){
@@ -80,8 +85,8 @@ function resizeGrid(n){
     }
 }
 
-
 function changeSquareColor(event){
+    
     let x,y;
     [x,y] = event.target.id.split("-").map(Number);
     if(rainbowBool){
@@ -89,10 +94,11 @@ function changeSquareColor(event){
     }else{
         if(event.buttons % 2){
             percentageArr[x][y] = Math.min(percentageArr[x][y]+10,100);
+            event.target.style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
         }else if(Math.floor(event.buttons/2) % 2){
             percentageArr[x][y] = Math.max(percentageArr[x][y]-10,0);
+            event.target.style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
         }
-        event.target.style.backgroundColor = `color-mix(in srgb ,${color1},${color2} ${percentageArr[x][y]}%)`;
     }
 }
 
@@ -154,4 +160,10 @@ function reset(){
 
 function rainbow(){
     rainbowBool = !rainbowBool;
+    rainbowButton = document.getElementById("button-rainbow");
+    if(rainbowBool){
+        rainbowButton.style.backgroundColor = "white";
+    }else{
+        rainbowButton.style.backgroundColor = "gray";
+    }
 }
