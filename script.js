@@ -20,14 +20,15 @@ let isHoverGrid = false;
 grid.style.width = gridSize.toString() + "px";
 grid.style.height = gridSize.toString() + "px";
 document.addEventListener("contextmenu", e => e.preventDefault(), false);
-
+let gridHeight = grid.clientHeight;
+let sqHeight = (gridHeight+1)/currentNumber-1;
 
 for(let x = 0 ; x < max; x++){
     for(let y = 0 ; y < max ; y++ ){
         let square = grid.appendChild( document.createElement("div"));
         square.setAttribute("id",`${x}-${y}`);
-        square.style.width = `${100/currentNumber}%`;
-        square.style.height = `${100/currentNumber}%`;
+        square.style.width = `${sqHeight}px`;
+        square.style.height = `${sqHeight}px`;
         square.style.backgroundColor = color1;
         square.style.margin = "0";
         square.style.display = x >= currentNumber || y >= currentNumber ? "none" : "inline";
@@ -74,13 +75,14 @@ function resizeGrid(n){
         }
     }
     currentNumber = n;
-    let per = 100/currentNumber;
+    let gridHeight = grid.clientHeight;
+    let sqHeight = (gridHeight+1)/currentNumber-1;
     squareLength = Math.floor(gridSize/currentNumber);
     for(let x = 0 ; x < currentNumber ; x++){
         for(let y = 0 ; y < currentNumber ; y++){
             square = document.getElementById(`${x}-${y}`);
-            square.style.width = `${per}%`;
-            square.style.height = `${per}%`;
+            square.style.width = `${sqHeight}px`;
+            square.style.height = `${sqHeight}px`;
         }
     }
 }
