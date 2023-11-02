@@ -164,8 +164,8 @@ function rainbow(){
     rainbowBool = !rainbowBool;
     rainbowButton = document.getElementById("button-rainbow");
     if(rainbowBool){
-        rainbowButton.style.backgroundColor = "white";
+        rainbowButton.style.backgroundColor = "var(--buttonColorOn)";
     }else{
-        rainbowButton.style.backgroundColor = "gray";
+        rainbowButton.style.backgroundColor = "var(--buttonColorOff)";
     }
 }

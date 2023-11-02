@@ -1,5 +1,9 @@
 :root{
     color-scheme: only light;
+    --backgroundColor : #343838;
+    --borderColor : #005F6B;
+    --buttonColorOn :#00DFFC;
+    --buttonColorOff :#008C9E;
 }
 
 body{
@@ -14,8 +18,8 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    background-color: var(--backgroundColor);
 }
-
 label{
     text-align: center;
     color: white;
@@ -24,13 +28,13 @@ label{
 }
 
 .option-container{
-    background-color: white;
+    background-color: var(--backgroundColor);
     display: flex;
     flex-direction: column;
 }
 
 .color-setting{
-    background-color: black;
+    background-color: var(--backgroundColor);
     color: white;
     align-items: center;
     flex-direction: column;
@@ -42,7 +46,7 @@ label{
     width: 350px;
     height: 50px;
     margin: 4%;
-    border: 2px solid white;
+    border: 2px solid var(--borderColor);
     border-top-right-radius: 10% 50%;
     border-bottom-right-radius: 10% 50%;
     border-bottom-left-radius: 10% 50%;
@@ -54,7 +58,7 @@ label{
     width: 2px;
     height: 50px;
     background-color: white;
-    border-color: black;
+    border-color: var(--borderColor);
     border-radius: 5px;
 }
 
@@ -65,6 +69,8 @@ label{
     width: 350px;
     background-color: red;
     background-image:   linear-gradient(to bottom, hsl(0 0% 100%) 0%, hsl(0 0% 100% / 0) 50%, hsl(0 0% 0% / 0) 50%, hsl(0 0% 0%) 100%), linear-gradient(to right, hsl(0 0% 50%) 0%, hsl(0 0% 50% / 0) 100%);
+    border: 3px solid var(--borderColor);
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -73,7 +79,7 @@ label{
     width: 10px;
     height: 10px;
     border-radius: 10px;
-    border: 2px solid white ;
+    border: 2px solid var(--borderColor);
 }
 
 #square-slider{
@@ -91,27 +97,33 @@ input{
 
 .button-div{
     display: flex;
-    flex-direction:row;
+    flex-direction:column;
     justify-content: space-around;
 }
 
 .button-div button{
     margin: 4%;
     width:100%;
+    background-color: var(--buttonColorOff);
     border-radius: 20%;
     aspect-ratio: 1;
 }
 
-#button-rainbow{
-    background-color: gray;
-}
-
-
-
 
 .grid{
+    height: max-content;
+    width: max-content;
     display: flex;
     flex-wrap: wrap;
-    background-color: green;
+    margin: 15px;
+    background-color: var(--borderColor);
     overflow: hidden;
+    border: 5px solid var(--borderColor);
+    gap: 1px;
+    row-gap: 1px;
+    border-radius: 7px;
+}
+
+.square{
+    border: 0px solid gray;
 }
